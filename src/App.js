@@ -34,9 +34,7 @@ function App() {
     }
     else{
       lineitemHolderAd.filter((item,index)=>{
-        if(el.LineItems_id === item){
-          lineitemHolderAd.splice(index, 1);
-        }
+        return (el.LineItems_id === item ? lineitemHolderAd.splice(index, 1):null)
       })
     }  
   } 
@@ -49,11 +47,12 @@ function App() {
     }
     else{
       lineitemHolderDbm.filter((item,index)=>{
-        if(el.LineItems_id === item){
-          lineitemHolderDbm.splice(index, 1);
-        }
+        return (el.LineItems_id === item ? lineitemHolderDbm.splice(index, 1): null)
+        
       })
     }  
+
+   
   } 
   
   
@@ -63,8 +62,8 @@ function App() {
 
   const mappedFun = async ()=>{
     let mapped_data =JSON.stringify({"dbm":lineitemHolderDbm, "adserver":lineitemHolderAd, "new_campaign":filename,"start_date":datepicker.start_date,"end_date":datepicker.end_date})
-    // let mapped = await Mapped(mapped_data);
-    console.log(mapped_data)
+    let mapped = await Mapped(mapped_data);
+    console.log(mapped,mapped_data)
   }
   async function fetchData() {
     let advertiser = await getAdserver(datepicker.start_date, datepicker.end_date);
