@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import './App.css';
 import { getAdLineItems, getDbmLineItems, getDbm, getAdserver ,Mapped} from './Apis'
-
+import UploadedCampaigns from "./UploadedCampaigns"
 
 function App() {
  
@@ -17,8 +17,9 @@ function App() {
   const [lineitemHolderDbm, setLineItemHolderDbm] = useState([])
   const [adserverdata, setAdserverData] = useState(false)
   const [dbm, setDbm] = useState(false)
-  const [filename,setFileName] = useState(false)
-  const [submitbtn,setSubmitbtn] = useState()
+  const [filename,setFileName] = useState()
+  const [modalCamp,setModalCamp] = useState()
+
 
 
   useEffect(() => {
@@ -61,9 +62,9 @@ function App() {
 
 
   const mappedFun = async ()=>{
-    let mapped_data =JSON.stringify({"dbm":lineitemHolderDbm, "adserver":lineitemHolderAd, "new_campaign":filename,"start_date":datepicker.start_date,"end_date":datepicker.end_date})
-    let mapped = await Mapped(mapped_data);
-    console.log(mapped,mapped_data)
+    let mapped_data ={"dbm":lineitemHolderDbm, "adserver":lineitemHolderAd, "new_campaign":filename,"start_date":datepicker.start_date,"end_date":datepicker.end_date}
+    let mapped = await Mapped(mapped_data); 
+    console.log(mapped,mapped_data.status)
   }
   async function fetchData() {
     let advertiser = await getAdserver(datepicker.start_date, datepicker.end_date);
@@ -135,6 +136,7 @@ function App() {
             <input type="date" name="start_date" placeholder='ENTER START DATE' value={datepicker.start_date} onChange={e => { setDatePicker({ ...datepicker, [e.target.name]: e.target.value }) }} />
             <input type="date" name="end_date" placeholder='ENTER END DATE' value={datepicker.end_date} onChange={e => { setDatePicker({ ...datepicker, [e.target.name]: e.target.value }) }} />
             <button onClick={() => { fetchData() }}>Submit</button>
+            <button onClick={()=>{setModalCamp(true)}}>Uploaded Campaigns</button>
           </div>
 
           <div className='tabs'>
@@ -144,6 +146,19 @@ function App() {
             </div>
 
             <h2 className='m-b m-t text-center'> {activetab === 0 ? "ADVERTISER DATA" : "DBM DATA"}</h2>
+            
+          
+
+            {
+              adserverdata &&
+              <>
+                  <input type="text" value={filename} placeholder='Enter Campaing name ' onChange={(e)=>{setFileName(e.target.value)}} style={{width:"200px"}}/>
+                <button  onClick={mappedFun}>
+                    Submit
+                </button>
+              </>
+             
+            }
             {
               activetab === 0 ?
                 <div className='data-table1'>
@@ -236,24 +251,14 @@ function App() {
             }
           </div>
 
-          {
-            adserverdata &&  <button onClick={()=>{setSubmitbtn(true)}}>Upload</button>
-
-          }
-
-            {
-              submitbtn &&
-              <div>
-                  <input type="text" value={filename} onChange={(e)=>{setFileName(e.target.value)}}/>
-                <button  onClick={mappedFun}>
-                    Submit
-                </button>
-              </div>
-             
-            }
+         
         </div>
 
       </section>
+      { modalCamp &&
+        <UploadedCampaigns/>
+      }
+      
     </>
 
   );

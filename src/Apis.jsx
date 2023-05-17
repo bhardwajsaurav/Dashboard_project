@@ -49,17 +49,40 @@ export function getDbmLineItems(cam_id,adver_id) {
 }
 export function Mapped(data){
   console.log("json data",data)
-  let payload = {"dbm":["19206452606","18891361809","18896655248"], "adserver":[], "new_campaign":"test campaign 55","start_date":"2023-04-01","end_date":"2023-04-25"}
-  // axios({
-  //   method: "post",
-  //   url: ",
-  //   payload: data,
-  // })
-  axios.post("http://3.6.100.227:9999/api/v1/mapped",payload)
+  let payload = data
+  return axios
+   .post("http://3.6.100.227:9999/api/v1/mapped",payload)
     .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+       return error;
+    });
+};
+
+
+
+
+export function ListingUploadCampaigns(start_date ,end_date){
+  return axios
+  .get(`http://3.6.100.227:9999/api/v1/ListCampaignsForUpdate?start_date=${start_date}&end_date=${end_date}`)
+  .then(function (response) {
       return response;
     })
     .catch(function (error) {
        return error;
     });
 };
+
+
+export function ShowcampaignTemp(){
+  return axios
+  .get('http://3.6.100.227:9999/api/v1/showcampaignTemp')
+  .then(function (response) {
+      return response;
+    })
+    .catch(function (error) {
+       return error;
+    });
+};
+
