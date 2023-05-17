@@ -100,3 +100,24 @@ section.listing_campaigns {
     display: flex;
     justify-content: space-around;
 }
+.modal {
+    position: top;
+    position: absolute;
+    top: 50%;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    right: 0;
+    left: 0;
+    background: #36ce36;
+    color: white;
+    padding: 19px;
+    border-radius: 20px;
+}
+
+
+.modal svg{
+    position: absolute;
+    right: 10px;
+    top: 11px;
+}

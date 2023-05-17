@@ -48,12 +48,11 @@ export function getDbmLineItems(cam_id,adver_id) {
     });
 }
 export function Mapped(data){
-  console.log("json data",data)
   let payload = data
   return axios
    .post("http://3.6.100.227:9999/api/v1/mapped",payload)
-    .then(function (response) {
-      return response.data;
+   .then(function (response) {
+      return response;
     })
     .catch(function (error) {
        return error;

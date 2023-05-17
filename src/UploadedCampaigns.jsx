@@ -33,7 +33,7 @@ const UploadedCampaigns = ()=>{
                             <th>Account Name</th>
                         </tr>
                         {
-                            listingcampaigns &&   listingcampaigns.data.length !== 0 ? listingcampaigns.data.data.map((elem,index)=>{
+                            listingcampaigns &&   listingcampaigns.data ? listingcampaigns.data.data.map((elem,index)=>{
 
                                 return(
                                          <tr>

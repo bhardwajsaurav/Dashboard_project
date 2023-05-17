@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react';
 import './App.css';
 import { getAdLineItems, getDbmLineItems, getDbm, getAdserver ,Mapped} from './Apis'
 import UploadedCampaigns from "./UploadedCampaigns"
-
+import  Modal from "./Modal"
 function App() {
  
   
@@ -19,6 +19,7 @@ function App() {
   const [dbm, setDbm] = useState(false)
   const [filename,setFileName] = useState()
   const [modalCamp,setModalCamp] = useState()
+  const [mappedstatus, setMappedStatus] = useState(false)
 
 
 
@@ -64,7 +65,7 @@ function App() {
   const mappedFun = async ()=>{
     let mapped_data ={"dbm":lineitemHolderDbm, "adserver":lineitemHolderAd, "new_campaign":filename,"start_date":datepicker.start_date,"end_date":datepicker.end_date}
     let mapped = await Mapped(mapped_data); 
-    console.log(mapped,mapped_data.status)
+    setMappedStatus(mapped.data.summary)
   }
   async function fetchData() {
     let advertiser = await getAdserver(datepicker.start_date, datepicker.end_date);
@@ -136,7 +137,7 @@ function App() {
             <input type="date" name="start_date" placeholder='ENTER START DATE' value={datepicker.start_date} onChange={e => { setDatePicker({ ...datepicker, [e.target.name]: e.target.value }) }} />
             <input type="date" name="end_date" placeholder='ENTER END DATE' value={datepicker.end_date} onChange={e => { setDatePicker({ ...datepicker, [e.target.name]: e.target.value }) }} />
             <button onClick={() => { fetchData() }}>Submit</button>
-            <button onClick={()=>{setModalCamp(true)}}>Uploaded Campaigns</button>
+            <button onClick={()=>{setModalCamp(true)}}>New Campaigns</button>
           </div>
 
           <div className='tabs'>
@@ -171,7 +172,7 @@ function App() {
 
                     {
               
-                      adserverdata && adserverdata['data'].length !== 0 ? adserverdata['data'][0].campaigns.map((elem, index) => {
+                      adserverdata && adserverdata['data'] ? adserverdata['data'][0].campaigns.map((elem, index) => {
                         return (
                           <>
                             <tr key={"ad" + index}>
@@ -215,7 +216,7 @@ function App() {
                       <th>LineItems</th>
                     </tr>
                     {
-                      dbm && dbm['data'].length !== 0 ? dbm['data'][0].campaigns.map((elem, index) => {
+                      dbm && dbm['data'] ? dbm['data'][0].campaigns.map((elem, index) => {
                         return (
                           <>
                             <tr key={index}>
@@ -258,6 +259,11 @@ function App() {
       { modalCamp &&
         <UploadedCampaigns/>
       }
+
+      {
+           mappedstatus && <Modal  mappedstatus = {mappedstatus} setMappedStatus={setMappedStatus}/>
+      }
+     
       
     </>
 
