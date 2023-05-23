@@ -1,5 +1,6 @@
 [[redirects]]
-from = "http://3.6.100.227:9999/api/"
-to = "https://theviralads.netlify.app/api/"
+from = "https://theviralads.netlify.app/api/"
+to = "https://www.google.com"
 status = 301
 force = true
+
