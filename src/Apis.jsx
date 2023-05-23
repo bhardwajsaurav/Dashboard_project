@@ -5,7 +5,7 @@ import axios from "axios";
 
 export function getAdserver(start,end) {
   return axios
-    .get(`http://3.6.100.227:9999/api/v1/adserverdata?start_date=${start}&end_date=${end}`)
+    .get(`https://theviralads.netlify.app/api/v1/adserverdata?start_date=${start}&end_date=${end}`)
     .then(function (response) {
       return response.data;
     })
@@ -60,6 +60,16 @@ export function Mapped(data){
 };
 
 
+export function SubmitMapped(){
+  return axios
+  .get(`http://3.6.100.227:9999/api/v1/updateData`)
+  .then(function (response) {
+      return response;
+    })
+    .catch(function (error) {
+       return error;
+    });
+};
 
 
 export function ListingUploadCampaigns(start_date ,end_date){
@@ -72,6 +82,19 @@ export function ListingUploadCampaigns(start_date ,end_date){
        return error;
     });
 };
+
+export function NewLineItems(start_date ,end_date,camp_id){
+  return axios
+  .get(`http://3.6.100.227:9999/api/v1/campaignsData?start_date=${start_date}&end_date=${end_date}&campaign_id=${camp_id}`)
+  .then(function (response) {
+      return response;
+    })
+    .catch(function (error) {
+       return error;
+    });
+};
+
+
 
 
 export function ShowcampaignTemp(){
