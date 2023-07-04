@@ -1,0 +1,30 @@
+.st{
+position: fixed;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #00000078;
+    left: 0;
+}
+
+
+.title_div{
+    padding: 40px;
+    background: #FB8C00;
+    color: white;
+}
+
+.title_div h1{
+    font-weight: 900;
+}
+
+.title_div svg{
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    width: 20px;
+
+}

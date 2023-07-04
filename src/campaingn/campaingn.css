@@ -1,0 +1,34 @@
+
+.wrap_date{
+    text-align: right;
+    padding: 4px;
+    border: 1px solid;
+    width: 34%;
+    border-radius:3px;
+}
+
+
+
+.wrap_date span{
+    color: #aba6a6;
+}
+
+
+.wrap_date input {
+    color: #aba6a6;
+    border: none;
+}
+
+
+
+.new_campaingns input{
+    width: 30%;
+    border: 2px solid #ed7d31;
+    border-radius: 5px;
+    outline: none;
+}
+
+.main_table {
+    max-height: 300px;
+    overflow: auto;
+}
