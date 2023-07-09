@@ -19,13 +19,15 @@ const Modal = ({ setClose, lineItems }) => {
             if (lineItems && lineItems.flag === "ad") {
                 let linedata = await getAdLineItems(lineItems && lineItems.camp_id, lineItems && lineItems.ad_id);
                 setIineitems(linedata && linedata['data']);
-
+                         console.log( lineItems.camp_id,lineItems.ad_id,"0")
                 setMapObj( linedata?.data?.map((item) => item?.lineitem_id))
             }
             else {
+                console.log( lineItems.camp_id,lineItems.ad_id,"0")
                 let linedataDbm = await getDbmLineItems(lineItems && lineItems.camp_id, lineItems && lineItems.ad_id);
                 // console.log(linedataDbm)
-                setIineitems(linedataDbm && linedataDbm["line_items"]);
+                setIineitems(linedataDbm["data"] && linedataDbm.data["line_items"]);
+                console.log( lineitems)
             }
 
 
@@ -81,7 +83,7 @@ const Modal = ({ setClose, lineItems }) => {
                                         <span className='radio'></span>
                                     </td>
                                     <td>
-                                        {el.lineitem_name}
+                                        {el.lineitem_name ?el.lineitem_name :el.line_item  }
                                     </td>
                                 </tr>
                             </>)

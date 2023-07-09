@@ -24,6 +24,7 @@ const Campaingn = () => {
     async function fetchData() {
         let advertiser = await getAdserver(datepicker.start_date, datepicker.end_date);
         let dbm = await getDbm(datepicker.start_date, datepicker.end_date);
+        // console.log(dbm)
         // if(advertiser !== undefined)
         setAdserverData(advertiser)
         setDbm(dbm)
@@ -127,11 +128,11 @@ const Campaingn = () => {
                                                         return (
 
                                                             <>
-
+                                                                           
                                                                 <tr key={"ad" + index}>
                                                                     <td className='radio_td'>
                                                                         <label htmlFor="">
-                                                                            <input type="radio" name="dbm" onClick={(e) => { inputHandlerModal(e, adserverdata.data[0].advertiser_id, elem.campaign_id, "dbm") }}/>
+                                                                            <input type="radio" name="dbm" onClick={(e) => { inputHandlerModal(e, dbm.data[0].advertiser_id, elem.campaign_id, "dbm") }}/>
                                                                             <span className='radio'></span>
                                                                         </label>
                                                                     </td>
