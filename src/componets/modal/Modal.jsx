@@ -6,10 +6,10 @@ import { useEffect, useState } from 'react';
 
 
 
-const Modal = ({ setClose, lineItems }) => {
+const Modal = ({ setClose, lineItems,mapObj ,setMapObj}) => {
     console.log(lineItems && lineItems.flag)
     const [lineitems, setIineitems] = useState([])
-    const [mapObj, setMapObj] = useState([])
+   
 
     // const [lineitemHolder, setLineItemHolder] = useState([])
     // const [lineitemHolderdbm, setLineItemHolderDbm] = useState([])
@@ -19,23 +19,21 @@ const Modal = ({ setClose, lineItems }) => {
             if (lineItems && lineItems.flag === "ad") {
                 let linedata = await getAdLineItems(lineItems && lineItems.camp_id, lineItems && lineItems.ad_id);
                 setIineitems(linedata && linedata['data']);
-                         console.log( lineItems.camp_id,lineItems.ad_id,"0")
-                setMapObj( linedata?.data?.map((item) => item?.lineitem_id))
             }
             else {
-                console.log( lineItems.camp_id,lineItems.ad_id,"0")
                 let linedataDbm = await getDbmLineItems(lineItems && lineItems.camp_id, lineItems && lineItems.ad_id);
-                // console.log(linedataDbm)
-                setIineitems(linedataDbm["data"] && linedataDbm.data["line_items"]);
-                console.log( lineitems)
+                setIineitems(linedataDbm["data"] && linedataDbm.data["line_items"]); 
             }
-
-
         })();
     }, [lineItems]);
 
+    console.log(mapObj,"mapObj===")
+    const DataHandle = (id)=>{
+      
+        mapObj.push(id)
+        setMapObj(mapObj)
+    }
 
-// console.log(mapObj,"mapObj===")
 
 
     return (
@@ -51,14 +49,8 @@ const Modal = ({ setClose, lineItems }) => {
                     <table className='tb_div'>
                         <tr>
                             <th className='radio_td'>
-                                <input type="checkbox" name="" checked={mapObj.length===0} onClick={(e) => {
-                                    if(e.target.checked){
-                                        setMapObj([])
-                                    } else{
-                                        setMapObj( lineitems?.map((item) => item?.lineitem_id))
-
-                                    ;} console.log(e.target.checked,"abc")} 
-                                    } />
+                                <input type="checkbox" name="" 
+                                     />
                                 <span className='radio'></span>
                             </th>
                             <th>Line Items</th>
@@ -69,14 +61,9 @@ const Modal = ({ setClose, lineItems }) => {
 
                             return (<>
                                 <tr >
-                                    <td className='radio_td'>
+                                    <td className='radio_td relative'>
 
-                                        <input type="checkbox" name="" checked={!mapObj.includes(el?.lineitem_id)} value={el?.lineitem_id } onClick={(e) => {
-                                            setMapObj((prev) => 
-                                                !(e.target.checked)? [...prev, e.target.value] : prev.filter(id => id !== e.target.value)
-                                            );
-                                          
-                                        }} />
+                                        <input type="checkbox"   value={el?.lineitem_id } onChange={()=>{DataHandle(el?.lineitem_id)}} />
 
 
 

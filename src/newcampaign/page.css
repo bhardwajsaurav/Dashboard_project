@@ -1,0 +1,13 @@
+.input_Div input{
+    
+       border: 2px solid #ed7d31;
+       border-radius: 5px;
+       outline: none;
+       width: 100%;
+}
+
+.button_last_saving button{
+   min-width: 200px;
+   border: none;
+   padding: 5px;
+}

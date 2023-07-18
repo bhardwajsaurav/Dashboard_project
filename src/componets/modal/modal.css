@@ -18,7 +18,7 @@
 }
 
 
-.radio_td input[type="checkbox"] {
+/* .radio_td input[type="checkbox"] {
     appearance: none;
     width: 20px;
     position: absolute;
@@ -33,7 +33,7 @@
 
   .radio_td input[type="checkbox"]:checked ~ span:after {
     background: #ed7d31;
-  }
+  } */
 
 
 ::-webkit-scrollbar {
