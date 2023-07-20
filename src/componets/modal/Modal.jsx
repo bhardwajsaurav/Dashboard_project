@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 
 
-const Modal = ({ setClose, lineItems,mapObj ,setMapObj}) => {
+const Modal = ({ setClose, lineItems,mapObj ,setMapObj,mapObj2,setMapObj2}) => {
     console.log(lineItems && lineItems.flag)
     const [lineitems, setIineitems] = useState([])
    
@@ -22,16 +22,24 @@ const Modal = ({ setClose, lineItems,mapObj ,setMapObj}) => {
             }
             else {
                 let linedataDbm = await getDbmLineItems(lineItems && lineItems.camp_id, lineItems && lineItems.ad_id);
-                setIineitems(linedataDbm["data"] && linedataDbm.data["line_items"]); 
+                 console.log(linedataDbm)
+                setIineitems(linedataDbm && linedataDbm['data']?.line_items); 
             }
         })();
     }, [lineItems]);
 
-    console.log(mapObj,"mapObj===")
+    console.log(mapObj,mapObj2,"mapObj===")
     const DataHandle = (id)=>{
       
         mapObj.push(id)
         setMapObj(mapObj)
+    }
+
+
+    const DataHandle2 = (id)=>{
+      
+        mapObj2.push(id)
+        setMapObj2(mapObj2)
     }
 
 
@@ -48,26 +56,49 @@ const Modal = ({ setClose, lineItems,mapObj ,setMapObj}) => {
                     } } />
                     <table className='tb_div'>
                         <tr>
-                            <th className='radio_td'>
+                            <th className='radio_td position-relative'>
                                 <input type="checkbox" name="" 
                                      />
-                                <span className='radio'></span>
+                                <span className='checkmark'></span>
                             </th>
                             <th>Line Items</th>
 
                         </tr>
             
-                        {lineitems && lineitems.map((el) => {
+                        { lineItems.flag === "ad" ? lineitems && lineitems.map((el) => {
 
                             return (<>
                                 <tr >
-                                    <td className='radio_td relative'>
-
+                                    <td className='radio_td position-relative'>
+                                        <label htmlFor="">
                                         <input type="checkbox"   value={el?.lineitem_id } onChange={()=>{DataHandle(el?.lineitem_id)}} />
 
 
 
-                                        <span className='radio'></span>
+<span className='checkmark'></span>
+                                        </label>
+
+                                      
+                                    </td>
+                                    <td>
+                                        {el.lineitem_name ?el.lineitem_name :el.line_item  }
+                                    </td>
+                                </tr>
+                            </>)
+
+                        }): lineitems && lineitems.map((el) => {
+
+                            return (<>
+                                <tr >
+                                    <td className='radio_td position-relative'>
+                                        <label htmlFor="">
+                                        <input type="checkbox"   value={el?.lineitem_id } onChange={()=>{DataHandle2(el?.line_item_id)}} />
+
+
+
+<span className='radio'></span>
+                                        </label>
+                                       
                                     </td>
                                     <td>
                                         {el.lineitem_name ?el.lineitem_name :el.line_item  }

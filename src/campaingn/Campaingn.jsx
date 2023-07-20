@@ -22,6 +22,7 @@ const Campaingn = () => {
     const [dbm, setDbm] = useState()
     const [statusModal, setStatusModal] = useState()
     const [mapObj, setMapObj] = useState([])
+    const [mapObj2, setMapObj2] = useState([])
 
     async function fetchData() {
         let advertiser = await getAdserver(datepicker.start_date, datepicker.end_date);
@@ -90,10 +91,10 @@ const Campaingn = () => {
                                                         <>
 
                                                             <tr key={"ad" + index}>
-                                                                <td className='radio_td'>
-                                                                <label htmlFor="">
+                                                                <td className='radio_td position-relative'>
+                                                                <label htmlFor="" className="relative">
                                                                             <input type="checkbox" name="ad"  checked={elem?.campaign_id === checkHandle} onChange={(e) => { inputHandlerModal(e, adserverdata.data[0].advertiser_id, elem.campaign_id, "ad") }}/>
-                                                                            <span className='radio'></span>
+                                                                            <span className='checkmark'></span>
                                                                         </label>
                                                                 </td>
                                                                 <td >
@@ -201,7 +202,7 @@ const Campaingn = () => {
                     </div>
                 </div>
                    {
-                    close &&  <Modal   setClose={setClose} lineItems={lineItems}  mapObj={mapObj} setMapObj={setMapObj}/>
+                    close &&  <Modal   setClose={setClose} lineItems={lineItems}  mapObj={mapObj} setMapObj={setMapObj} mapObj2={mapObj2} setMapObj2={setMapObj2} />
                    }
                    
                     {

@@ -80,7 +80,7 @@ export default function NewCamp() {
                                                     <td className='radio_td'>
                                                         <label htmlFor="">
                                                             <input type="checkbox" name="ad" checked={elem.campaign_id  === lineNew} onChange={()=>{setLineNew(elem.campaign_id)}}/>
-                                                            <span className='radio'></span>
+                                                            <span className='checkmark'></span>
                                                         </label>
                                                     </td>
                                                     <td >
