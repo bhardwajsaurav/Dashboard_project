@@ -85,7 +85,7 @@ const Campaingn = () => {
                                             </tr>
                                             {
 
-                                                adserverdata && adserverdata.data.length > 0  ? adserverdata['data'][0].campaigns.map((elem, index) => {
+                                                adserverdata && adserverdata?.data?.length > 0  ? adserverdata['data'][0].campaigns.map((elem, index) => {
                                                     return (
 
                                                         <>
@@ -136,7 +136,7 @@ const Campaingn = () => {
                                                 </tr>
                                                 {
 
-                                                    dbm &&  dbm['data'].length > 0 ? dbm['data'][0].campaigns.map((elem, index) => {
+                                                    dbm &&  dbm['data']?.length > 0 ? dbm['data'][0]?.campaigns.map((elem, index) => {
                                                         return (
 
                                                             <>

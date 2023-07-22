@@ -1,11 +1,12 @@
-import React ,{useEffect}from 'react'
+import React ,{useEffect, useState}from 'react'
 import "./statusmodal.css"
 import { AiFillCloseCircle } from 'react-icons/ai';
 export default function StatusModal({setStatusModal}) {
+  const [modalPop,setStatusPop] =useState(true)
   useEffect(() => {
     setTimeout(() => {
         removeModal()
-    }, 1000);
+    }, 3000);
   },);
 
   const removeModal = (()=>{
@@ -13,11 +14,24 @@ export default function StatusModal({setStatusModal}) {
   })
   return (
     <div className='st'>
-         <div className='title_div position-relative'>
-         <AiFillCloseCircle className="text-white mb-2 fs-3" onClick={()=>{setStatusModal(false)}}/>
+      {
+      modalPop ?  <div className='title_div position-relative'>
+      <AiFillCloseCircle className="text-white mb-2 fs-3" onClick={removeModal}/>
 
-             <h1>Status Is pendding</h1>
+          <h3 className='mb-4'>Are you sure to save campaign</h3>
+
+          <button className='m-auto d-block text-dark' style={{"background":"white"}} onClick={()=>{setStatusPop(false)}}>
+             Save
+          </button>
+      </div> : <div className='title_div position-relative'>
+         <AiFillCloseCircle className="text-white mb-2 fs-3" onClick={()=>{setStatusModal(false)}}/>
+               <h1>Status : Penddig</h1>
          </div>
+      }
+        
+
+
+        
     </div>
   )
 }

@@ -1,9 +1,11 @@
 
+
+import { React } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Camp from "./campaingn/Campaingn"
 import NewCamp from "./newcampaign/page"
+import Layout  from "./Layout"
 
-import logo from "./assets/images/logo6_edited.png"
 
 
 
@@ -12,20 +14,18 @@ const Myroute = () => {
     return (
         
         <>
-           <div className="p-3 ">
-           
-                    <img src={logo}/>
+             
             
-           </div>
+      
             <BrowserRouter>
                 <Routes>
                     <Route
                         exact
                         path="/"
                         element={
-                            <Camp
-                                
-                            />
+                            <Layout component={Camp}/>
+                               
+                           
                         }
                     />
 
@@ -33,9 +33,10 @@ const Myroute = () => {
                         exact
                         path="/newcampaign"
                         element={
-                            <NewCamp
-                                
-                            />
+                            <Layout component={NewCamp}/>
+                                    
+                            
+                          
                         }
                     />
                 </Routes>

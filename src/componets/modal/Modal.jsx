@@ -11,7 +11,7 @@ const Modal = ({ setClose, lineItems,mapObj ,setMapObj,mapObj2,setMapObj2}) => {
     const [lineitems, setIineitems] = useState([])
    
 
-    // const [lineitemHolder, setLineItemHolder] = useState([])
+    const [allGet, setAllGet] = useState([])
     // const [lineitemHolderdbm, setLineItemHolderDbm] = useState([])
 
     useEffect(() => {
@@ -28,9 +28,9 @@ const Modal = ({ setClose, lineItems,mapObj ,setMapObj,mapObj2,setMapObj2}) => {
         })();
     }, [lineItems]);
 
-    console.log(mapObj,mapObj2,"mapObj===")
+    // console.log(mapObj,mapObj2,"mapObj===")
     const DataHandle = (id)=>{
-      
+        
         mapObj.push(id)
         setMapObj(mapObj)
     }
