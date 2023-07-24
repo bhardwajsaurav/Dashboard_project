@@ -77,7 +77,7 @@ export default function NewCamp() {
                                             <>
 
                                                 <tr key={"ad" + index}>
-                                                    <td className='radio_td'>
+                                                    <td className='radio_td position-relative'>
                                                         <label htmlFor="">
                                                             <input type="checkbox" name="ad" checked={elem.campaign_id  === lineNew} onChange={()=>{setLineNew(elem.campaign_id)}}/>
                                                             <span className='checkmark'></span>

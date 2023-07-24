@@ -6,12 +6,18 @@ import { useEffect, useState } from 'react';
 
 
 
-const Modal = ({ setClose, lineItems,mapObj ,setMapObj,mapObj2,setMapObj2}) => {
-    console.log(lineItems && lineItems.flag)
-    const [lineitems, setIineitems] = useState([])
-   
+const Modal = ({ setClose, lineItems, mapObj, setMapObj, mapObj2, setMapObj2 }) => {
 
-    const [allGet, setAllGet] = useState([])
+
+    
+    const [lineitems, setIineitems] = useState([])
+
+    useEffect(()=>{
+        console.log("")
+       },[lineitems])
+    
+    // const [allGet, setAllGet] = useState([])
+    // const [allGetStatus, setAllGetStatus] = useState(false)
     // const [lineitemHolderdbm, setLineItemHolderDbm] = useState([])
 
     useEffect(() => {
@@ -19,29 +25,58 @@ const Modal = ({ setClose, lineItems,mapObj ,setMapObj,mapObj2,setMapObj2}) => {
             if (lineItems && lineItems.flag === "ad") {
                 let linedata = await getAdLineItems(lineItems && lineItems.camp_id, lineItems && lineItems.ad_id);
                 setIineitems(linedata && linedata['data']);
+                // lineitems?.map((elem) => {
+                //     return( elem['check'] = "") 
+                // })
             }
             else {
                 let linedataDbm = await getDbmLineItems(lineItems && lineItems.camp_id, lineItems && lineItems.ad_id);
-                 console.log(linedataDbm)
-                setIineitems(linedataDbm && linedataDbm['data']?.line_items); 
+                //  console.log(linedataDbm)
+                setIineitems(linedataDbm && linedataDbm['data']?.line_items);
+
             }
         })();
     }, [lineItems]);
 
-    // console.log(mapObj,mapObj2,"mapObj===")
-    const DataHandle = (id)=>{
-        
-        mapObj.push(id)
-        setMapObj(mapObj)
+   
+    const DataHandle = (e,index) => {
+        if(e.target.checked === false)
+        {      
+                return(lineitems[index]['check'] = false)                     
+        }
+        else
+        {
+                return(lineitems[index]['check'] = false)                     
+        }
     }
 
 
-    const DataHandle2 = (id)=>{
+
+    const getAllHandle = (e) => {
+        if(e.target.checked) 
+        {
+            lineitems?.map((elem)=>{  
+               
+                return(elem['check'] = true)                     
+       })
+        } 
+        else{
+            lineitems?.map((elem)=>{  
+                return( elem['check'] = false)         
+            })
+        }
       
-        mapObj2.push(id)
-        setMapObj2(mapObj2)
     }
 
+    console.log(lineitems[0]?.check)
+
+
+
+
+
+    
+
+  
 
 
     return (
@@ -51,57 +86,55 @@ const Modal = ({ setClose, lineItems,mapObj ,setMapObj,mapObj2,setMapObj2}) => {
             <div className="main_modal d-flex justify-content-center align-items-center" >
 
                 <div className="modal_cus">
-                    <AiFillCloseCircle className="text-white mb-2 fs-3" style={{ float: "right" }} onClick={() => { setClose(false)
-              
-                    } } />
+                    <AiFillCloseCircle className="text-white mb-2 fs-3" style={{ float: "right" }} onClick={() => {
+                        setClose(false)
+
+                    }} />
                     <table className='tb_div'>
                         <tr>
                             <th className='radio_td position-relative'>
-                                <input type="checkbox" name="" 
-                                     />
+                                <input type="checkbox" name="" onClick={(e)=>{getAllHandle(e)}} />
                                 <span className='checkmark'></span>
                             </th>
                             <th>Line Items</th>
 
                         </tr>
-            
-                        { lineItems.flag === "ad" ? lineitems && lineitems.map((el) => {
+
+                        {lineItems.flag === "ad" ? lineitems && lineitems.map((el,index) => {
 
                             return (<>
                                 <tr >
                                     <td className='radio_td position-relative'>
                                         <label htmlFor="">
-                                        <input type="checkbox"   value={el?.lineitem_id } onChange={()=>{DataHandle(el?.lineitem_id)}} />
-
-
-
-<span className='checkmark'></span>
+                                            {/* <p>{el?.check}</p> */}
+                                            <input type="checkbox" checked={el?.check} value={el?.lineitem_id} onChange={(e) => { DataHandle(e,index) }} />
+                                            <span className='checkmark'></span>
                                         </label>
 
-                                      
+
                                     </td>
                                     <td>
-                                        {el.lineitem_name ?el.lineitem_name :el.line_item  }
+                                        {el.lineitem_name ? el.lineitem_name : el.line_item}
                                     </td>
                                 </tr>
                             </>)
 
-                        }): lineitems && lineitems.map((el) => {
+                        }) : lineitems && lineitems.map((el,index) => {
 
                             return (<>
                                 <tr >
                                     <td className='radio_td position-relative'>
                                         <label htmlFor="">
-                                        <input type="checkbox"   value={el?.lineitem_id } onChange={()=>{DataHandle2(el?.line_item_id)}} />
+                                            <input type="checkbox"   value={el?.lineitem_id}  onChange={(e) => { DataHandle(e,index) }} />
 
 
 
-<span className='radio'></span>
+                                            <span className='radio'></span>
                                         </label>
-                                       
+
                                     </td>
                                     <td>
-                                        {el.lineitem_name ?el.lineitem_name :el.line_item  }
+                                        {el.lineitem_name ? el.lineitem_name : el.line_item}
                                     </td>
                                 </tr>
                             </>)
