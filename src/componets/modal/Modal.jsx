@@ -12,22 +12,19 @@ const Modal = ({ setClose, lineItems, mapObj, setMapObj, mapObj2, setMapObj2 }) 
     
     const [lineitems, setIineitems] = useState([])
 
-    useEffect(()=>{
-        console.log("")
-       },[lineitems])
+
     
-    // const [allGet, setAllGet] = useState([])
+    const [allGet, setAllGet] = useState()
     // const [allGetStatus, setAllGetStatus] = useState(false)
     // const [lineitemHolderdbm, setLineItemHolderDbm] = useState([])
+   
 
     useEffect(() => {
         (async () => {
             if (lineItems && lineItems.flag === "ad") {
                 let linedata = await getAdLineItems(lineItems && lineItems.camp_id, lineItems && lineItems.ad_id);
                 setIineitems(linedata && linedata['data']);
-                // lineitems?.map((elem) => {
-                //     return( elem['check'] = "") 
-                // })
+                
             }
             else {
                 let linedataDbm = await getDbmLineItems(lineItems && lineItems.camp_id, lineItems && lineItems.ad_id);
@@ -35,40 +32,42 @@ const Modal = ({ setClose, lineItems, mapObj, setMapObj, mapObj2, setMapObj2 }) 
                 setIineitems(linedataDbm && linedataDbm['data']?.line_items);
 
             }
+           
         })();
     }, [lineItems]);
 
    
     const DataHandle = (e,index) => {
-        if(e.target.checked === false)
-        {      
-                return(lineitems[index]['check'] = false)                     
-        }
-        else
-        {
-                return(lineitems[index]['check'] = false)                     
-        }
+        let obj = {}
+        obj[e.target.name] = false
+        setAllGet(prev=>({...prev,...obj}))
+        console.log(allGet)
     }
 
 
 
     const getAllHandle = (e) => {
-        if(e.target.checked) 
-        {
-            lineitems?.map((elem)=>{  
-               
-                return(elem['check'] = true)                     
-       })
-        } 
-        else{
-            lineitems?.map((elem)=>{  
-                return( elem['check'] = false)         
+        if(e.target.checked ===true){
+            lineitems?.map((el,index)=>{
+                let obj = {}
+                obj[el?.lineitem_id] = true
+                setAllGet(prev=>({...prev,...obj}))
             })
         }
-      
+
+        else{
+            setAllGet([])
+        }
+        
+
+     
+       
     }
 
-    console.log(lineitems[0]?.check)
+
+    
+
+    
 
 
 
@@ -104,10 +103,11 @@ const Modal = ({ setClose, lineItems, mapObj, setMapObj, mapObj2, setMapObj2 }) 
 
                             return (<>
                                 <tr >
+                                    
                                     <td className='radio_td position-relative'>
                                         <label htmlFor="">
-                                            {/* <p>{el?.check}</p> */}
-                                            <input type="checkbox" checked={el?.check} value={el?.lineitem_id} onChange={(e) => { DataHandle(e,index) }} />
+        
+                                            <input type="checkbox" name={el?.lineitem_id}  checked={allGet && allGet[el.lineitem_id] === true ? true :""} value={el?.lineitem_id} onChange={(e) => { DataHandle(e,index) }} />
                                             <span className='checkmark'></span>
                                         </label>
 
