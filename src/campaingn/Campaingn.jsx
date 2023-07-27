@@ -142,10 +142,10 @@ const Campaingn = () => {
                                                             <>
                                                                            
                                                                 <tr key={"ad" + index}>
-                                                                    <td className='radio_td'>
+                                                                    <td className='radio_td position-relative'>
                                                                         <label htmlFor="">
                                                                             <input type="checkBox" checked={elem?.campaign_id === checkHandle} name="dbm" onClick={(e) => { inputHandlerModal(e, dbm.data[0].advertiser_id, elem.campaign_id, "dbm") }}/>
-                                                                            <span className='radio'></span>
+                                                                            <span className='checkmark'></span>
                                                                         </label>
                                                                     </td>
                                                                     <td >
