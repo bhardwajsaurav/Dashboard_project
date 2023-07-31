@@ -37,20 +37,34 @@ const Modal = ({ setClose, lineItems, mapObj, setMapObj, mapObj2, setMapObj2 }) 
     }, [lineItems]);
 
    
-    const DataHandle = (e,index) => {
+    const DataHandle = (e,index,status) => {
+       
         let obj = {}
-         if(allGet[e.target.name]){
-            obj[e.target.name] = false
-           let filter = mapObj?.filter((elem)=>{
-                return elem !== e.target.name
-                               
-            })
-            setMapObj(filter) 
+           
+         if(allGet[e]){
+            obj[e] = false
+            if(status ==="ad"){
+                let filter = mapObj?.filter((elem)=>{
+                  
+                    return elem !== e
+                })
+                setMapObj(filter)
+            }
+            else{
+                let filter = mapObj2?.filter((elem)=>{
+                    return elem !== e
+                })
+                setMapObj2(filter)
+            }
+         
+
+           
          }
          else{
-            obj[e.target.name] = true
-            mapObj.push( e.target.name)
-            setMapObj(mapObj) 
+            obj[e] = true
+            status === "ad" ?  mapObj.push(e) : mapObj2.push(e)
+            status === "ad" ? setMapObj(mapObj) : setMapObj2(mapObj2) 
+            
          }
         setAllGet(prev=>({...prev,...obj}))
         
@@ -78,33 +92,36 @@ const Modal = ({ setClose, lineItems, mapObj, setMapObj, mapObj2, setMapObj2 }) 
                     obj[el?.line_item_id] = true
                     setAllGet(prev=>({...prev,...obj}))
                     mapObj2.push(el?.line_item_id)
-                    setMapObj2(mapObj)
+                    setMapObj2(mapObj2)
                     
                 }
-               
-               
-               
             })
         }
 
         else{
-            // setAllGet([])
-            let filter = lineitems?.filter((elem,index)=>{
-               
-                    if(mapObj[index] !== elem.lineitem_id){
-                        setMapObj(mapObj[index])
-                    }  
-            
-                    
-            })
-            // console.log(filter,"----")
-           
-        }
+            let obj ={}
+    
+            lineitems.map(function(item,index) {
+            obj[item?.lineitem_id ? item?.lineitem_id:item.line_item_id ] =false
+            item?.lineitem_id ? mapObj.splice(mapObj.indexOf(item),1) :  mapObj2.splice(mapObj2.indexOf(item),1) 
+            item?.lineitem_id ? console.log(1) :console.log(2)
+        })
+
+        
+
+        setAllGet(prev=>({...prev,...obj}))   
+        
+       
+
+    }
+        
        
     }
 
+   
+
     console.log(mapObj)
-    
+
 
     
 
@@ -146,7 +163,7 @@ const Modal = ({ setClose, lineItems, mapObj, setMapObj, mapObj2, setMapObj2 }) 
                                     <td className='radio_td position-relative'>
                                         <label htmlFor="">
         
-                                            <input type="checkbox" name={el?.lineitem_id}  checked={allGet && allGet[el.lineitem_id] === true ? true :false} value={el?.lineitem_id} onChange={(e) => { DataHandle(e,index) }} />
+                                            <input type="checkbox" name={el?.lineitem_id}  checked={allGet && allGet[el.lineitem_id] === true ? true :false} value={el?.lineitem_id} onChange={(e) => { DataHandle(e.target.name,index,"ad") }} />
                                             <span className='checkmark'></span>
                                         </label>
 
@@ -164,11 +181,7 @@ const Modal = ({ setClose, lineItems, mapObj, setMapObj, mapObj2, setMapObj2 }) 
                                 <tr >
                                     <td className='radio_td position-relative'>
                                         <label htmlFor="">
-                                            <input type="checkbox"  name={el?.line_item_id}  checked={allGet && allGet[el?.line_item_id] === true ? true :""}  value={el?.line_item_id}  onChange={(e) => { DataHandle(e,index) }} />
-
-                                            
-
-
+                                            <input type="checkbox"  name={el?.line_item_id}  checked={allGet && allGet[el?.line_item_id] === true ? true :""}  value={el?.line_item_id}  onChange={(e) => { DataHandle(e.target.name,index,"dbm") }} />
                                             <span className='checkmark'></span>
                                         </label>
 

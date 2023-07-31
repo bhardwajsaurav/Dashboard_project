@@ -5,7 +5,7 @@ import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import "./campaingn.css"
 import { IoIosArrowForward } from 'react-icons/io';
-import { getAdserver, getDbm } from "../Apis"
+import { Mapped, getAdserver, getDbm } from "../Apis"
 import Modal from "../componets/modal/Modal";
 import StatusModal from "../componets/statusmodal/StatusModal";
 
@@ -23,6 +23,7 @@ const Campaingn = () => {
     const [statusModal, setStatusModal] = useState()
     const [mapObj, setMapObj] = useState([])
     const [mapObj2, setMapObj2] = useState([])
+    const [CampaignName, setCampaignName] = useState({name:""})
 
     async function fetchData() {
         let advertiser = await getAdserver(datepicker.start_date, datepicker.end_date);
@@ -42,6 +43,20 @@ const Campaingn = () => {
             })
             setClose(true)
     }
+
+    const SaveMapped = async ()=>{
+        const payLoad =
+        {"dbm":mapObj2, "adserver":mapObj, "new_campaign":CampaignName.name,"start_date":datepicker.start_date,"end_date":datepicker.end_date}
+       const data =  await Mapped(payLoad)
+       setStatusModal(true) 
+       
+        
+    }
+
+    
+
+
+  
 
     
     return (
@@ -180,7 +195,7 @@ const Campaingn = () => {
                                         <div className="d-flex">
                                             <button className="common_button px-4 py-1 me-3">New Campaingn Name</button>
 
-                                            <input type="text" className="ps-3" />
+                                            <input type="text"  name="name"  className="ps-3" onChange={(e)=>{setCampaignName({...CampaignName,[e.target.name]:e.target.value})}}/>
                                         </div>
 
 
@@ -190,7 +205,7 @@ const Campaingn = () => {
                                             <button className="common_button me-3" onClick={() => { setNext(1) }}>
                                                 Back  <IoIosArrowForward />
                                             </button>
-                                            <button className="common_button" onClick={() => { setStatusModal(true) }}>
+                                            <button className="common_button" onClick={SaveMapped}>
                                                 Save  <IoIosArrowForward />
                                             </button>
                                         </div>

@@ -71,6 +71,17 @@ export function getAdserver(start,end) {
       });
   };
   
+
+  export function StatusManipulation(){
+    return axios
+    .get(`https://reportsapi.ekaleido.tech/api/v1/statusManipulation`)
+    .then(function (response) {
+        return response;
+      })
+      .catch(function (error) {
+         return error;
+      });
+  };
   
   export function ListingUploadCampaigns(start_date ,end_date){
     return axios

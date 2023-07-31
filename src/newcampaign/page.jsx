@@ -23,12 +23,13 @@ export default function NewCamp() {
 
     const getLineNew =  async ()=>{
         
-        let newCamp = await NewLineItems(datepicker.start_date, datepicker.end_date,lineNew);
+        let newCamp = await NewLineItems(datepicker.start_date, datepicker.end_date,parseInt(lineNew));
+        console.log(newCamp)
         setDataNewL(newCamp)
     }
 
 
-    console.log(newCampData)
+    console.log(lineNew)
 
 
 
