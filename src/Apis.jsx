@@ -132,3 +132,33 @@ export function getAdserver(start,end) {
          return error;
       });
   };
+
+
+
+
+  export function UpdateRatio(Data){
+    return axios
+    .post(`https://reportsapi.ekaleido.tech/api/v1/lineitemRatioUpdate`,Data)
+    .then(function (response) {
+        return response;
+      })
+      .catch(function (error) {
+         return error;
+      });
+  };
+
+
+  export function Preview(){
+    return axios
+    .get(`https://reportsapi.ekaleido.tech/api/v1/preview`)
+    .then(function (response) {
+        return response;
+      })
+      .catch(function (error) {
+         return error;
+      });
+  };
+  
+  
+
+ 
