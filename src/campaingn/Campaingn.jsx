@@ -8,6 +8,8 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { Mapped, getAdserver, getDbm } from "../Apis"
 import Modal from "../componets/modal/Modal";
 import StatusModal from "../componets/statusmodal/StatusModal";
+import DeleteCamps from "../deleteCamp/page";
+import { AiFillDelete } from "react-icons/ai";
 
 const Campaingn = () => {
     const [datepicker, setDatePicker] = useState({
@@ -24,6 +26,7 @@ const Campaingn = () => {
     const [mapObj, setMapObj] = useState([])
     const [mapObj2, setMapObj2] = useState([])
     const [CampaignName, setCampaignName] = useState({name:""})
+    const [delstatus,setDelStatus]  =useState()
 
     async function fetchData() {
         let advertiser = await getAdserver(datepicker.start_date, datepicker.end_date);
@@ -79,6 +82,8 @@ const Campaingn = () => {
                             <button className="ms-2 common_button" onClick={fetchData}>
                                 Report
                             </button>
+                          
+                            <AiFillDelete className="ms-2 common_button common_bg text-white p-3" style={{width:"50px",height:"50px" ,borderRadius:"70%"}} onClick={()=>{setDelStatus(true)}}/>
 
                         </div>
 
@@ -228,8 +233,12 @@ const Campaingn = () => {
 
 
             </section>
-
-
+              
+            {
+                delstatus &&
+                <DeleteCamps setDelStatus={setDelStatus}/>
+            }       
+            
         </>
     )
 

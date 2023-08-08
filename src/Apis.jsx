@@ -160,5 +160,18 @@ export function getAdserver(start,end) {
   };
   
   
+  
+
+  export function DeleteCamp(data){
+    return axios
+    .post(`https://reportsapi.ekaleido.tech/api/v1/deleteNewCampaign`,data)
+    .then(function (response) {
+        return response;
+      })
+      .catch(function (error) {
+         return error;
+      });
+  };
+  
 
  

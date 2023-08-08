@@ -54,7 +54,7 @@ export default function NewCamp() {
         console.log(data.data.status)
         setStatusManipulated(data.data.status === 200? true :false )
     }
-
+    console.log(AllId,"---")
     const applyAll = (e) => {
         let objdata = {
             "campaign_id": lineNew,
@@ -259,13 +259,13 @@ export default function NewCamp() {
                                             <div className='col-md-8'>
                                                 <div className='input_Div'>
                                                     <div className='d-flex gap-2 mb-4'>
-                                                        <input type="number" name='min' value={ctr.min} onChange={(e) => { setCtr({ ...ctr, [e.target.name]: e.target.value }) }} />
-                                                        <input type="number" name="max" value={ctr.max} onChange={(e) => { setCtr({ ...ctr, [e.target.name]: e.target.value }) }} />
+                                                        <input className="ps-2" type="number" name='min' placeholder='Ctr Min' value={ctr.min} onChange={(e) => { setCtr({ ...ctr, [e.target.name]: e.target.value }) }} />
+                                                        <input className="ps-2" type="number" name="max"  placeholder="Ctr Max" value={ctr.max} onChange={(e) => { setCtr({ ...ctr, [e.target.name]: e.target.value }) }} />
                                                     </div>
 
                                                     <div className='d-flex gap-2 mb-4'>
-                                                        <input type="number" name='min' value={cpc.min} onChange={(e) => { setCpc({ ...cpc, [e.target.name]: e.target.value }) }} />
-                                                        <input type="number" name="max" value={cpc.max} onChange={(e) => { setCpc({ ...cpc, [e.target.name]: e.target.value }) }} />
+                                                        <input className="ps-2" type="number" name='min' placeholder='Cpc Min' value={cpc.min} onChange={(e) => { setCpc({ ...cpc, [e.target.name]: e.target.value }) }} />
+                                                        <input className="ps-2" type="number" name="max" placeholder="Cpc Max" value={cpc.max} onChange={(e) => { setCpc({ ...cpc, [e.target.name]: e.target.value }) }} />
                                                     </div>
                                                 </div>
 
@@ -376,7 +376,10 @@ export default function NewCamp() {
                     {
                         statusManipulated  &&  <div className='st'>
                         <div className='title_div position-relative text-center'>
-                            <AiFillCloseCircle className="text-white mb-2 fs-3" onClick={()=>{setStatusManipulated(false)}}/>
+                            <AiFillCloseCircle className="text-white mb-2 fs-3" onClick={()=>{
+                                setStatusManipulated(false)
+                                setAllId([])
+                                }}/>
                             
                             <h3 className='mb-4'>Data Manipulated Successfully</h3>
                             <button className='m-auto d-block text-dark' style={{"background":"white"}} onClick={PreviewHandle}>Save</button>
@@ -403,6 +406,8 @@ export default function NewCamp() {
 
 
 
+
+                    
         </section>
     )
 }

@@ -1,0 +1,18 @@
+.dele {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: white;
+    height: 100%;
+}
+
+
+.dele .wrap_date {
+    width: 33%;
+}
+
+.cross_del{
+    top: 10px;
+    right: 10px;
+}
